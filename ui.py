@@ -1,13 +1,11 @@
 """
-ATM System - UI Module
+Namibia EXPRESS ATM System — UI Module
 Handles all terminal display, formatting, and user input.
 """
 
 import os
 import time
 
-
-# ─── ANSI Colours ─────────────────────────────────────────────────────────────
 
 class Color:
     RESET   = "\033[0m"
@@ -31,25 +29,35 @@ def fmt(text: str, *codes) -> str:
 
 
 def header(title: str = "") -> None:
-    """Print the ATM header banner."""
+    """Print the Namibia EXPRESS ATM System header banner."""
     clear()
-    width = 52
-    print(fmt("═" * width, Color.CYAN, Color.BOLD))
-    print(fmt("  ██╗  ██╗ █████╗ ████████╗ ██████╗ ██╗   ██╗", Color.CYAN, Color.BOLD))
-    print(fmt("  ██║ ██╔╝██╔══██╗╚══██╔══╝██╔═══██╗╚██╗ ██╔╝", Color.CYAN, Color.BOLD))
-    print(fmt("  █████╔╝ ███████║   ██║   ██║   ██║ ╚████╔╝ ", Color.CYAN, Color.BOLD))
-    print(fmt("  ██╔═██╗ ██╔══██║   ██║   ██║   ██║  ╚██╔╝  ", Color.CYAN, Color.BOLD))
-    print(fmt("  ██║  ██╗██║  ██║   ██║   ╚██████╔╝   ██║   ", Color.CYAN, Color.BOLD))
-    print(fmt("  ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝    ╚═╝   ", Color.CYAN, Color.BOLD))
-    print(fmt("         A T M   S y s t e m   v1.0           ", Color.DIM))
-    print(fmt("═" * width, Color.CYAN, Color.BOLD))
+    W = 58
+    b = (Color.CYAN, Color.BOLD)
+    print(fmt("╔" + "═" * W + "╗", *b))
+    print(fmt("║" + " " * W + "║", *b))
+    lines = [
+        "  ███╗   ██╗ █████╗ ███╗   ███╗██╗██████╗ ██╗ █████╗  ",
+        "  ████╗  ██║██╔══██╗████╗ ████║██║██╔══██╗██║██╔══██╗ ",
+        "  ██╔██╗ ██║███████║██╔████╔██║██║██████╔╝██║███████║ ",
+        "  ██║╚██╗██║██╔══██║██║╚██╔╝██║██║██╔══██╗██║██╔══██║ ",
+        "  ██║ ╚████║██║  ██║██║ ╚═╝ ██║██║██████╔╝██║██║  ██║ ",
+        "  ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═════╝ ╚═╝╚═╝  ╚═╝ ",
+    ]
+    for line in lines:
+        print(fmt("║", *b) + fmt(line.ljust(W), *b) + fmt("║", *b))
+    print(fmt("║" + " " * W + "║", *b))
+    print(fmt("╠" + "═" * W + "╣", *b))
+    print(fmt("║", *b) + fmt("  ★  EXPRESS ATM SYSTEM  —  Namibia  ★".center(W), Color.YELLOW, Color.BOLD) + fmt("║", *b))
+    print(fmt("║", *b) + fmt("    Serving Namibia with Pride & Speed   ".center(W), Color.DIM) + fmt("║", *b))
+    print(fmt("╚" + "═" * W + "╝", *b))
     if title:
-        print(fmt(f"  {title.center(width - 4)}", Color.YELLOW, Color.BOLD))
-        print(fmt("─" * width, Color.DIM))
+        print()
+        print(fmt(f"  ▸  {title}", Color.YELLOW, Color.BOLD))
+        print(fmt("─" * (W + 2), Color.DIM))
     print()
 
 
-def divider(width: int = 52) -> None:
+def divider(width: int = 60) -> None:
     print(fmt("─" * width, Color.DIM))
 
 
@@ -95,7 +103,6 @@ def menu(title: str, options: list, back_label: str = "Back") -> str:
 
 
 def get_input(prompt: str, secret: bool = False) -> str:
-    """Get input from user, optionally masking it."""
     if secret:
         import getpass
         return getpass.getpass(fmt(f"  ➤  {prompt}: ", Color.CYAN))
@@ -103,7 +110,6 @@ def get_input(prompt: str, secret: bool = False) -> str:
 
 
 def get_amount(prompt: str) -> float:
-    """Prompt the user for a valid monetary amount."""
     while True:
         raw = get_input(prompt)
         try:
@@ -117,27 +123,28 @@ def get_amount(prompt: str) -> float:
 
 
 def print_receipt(title: str, rows: list) -> None:
-    """Print a formatted receipt-style block."""
-    width = 52
+    width = 60
     print()
     print(fmt("┌" + "─" * (width - 2) + "┐", Color.CYAN))
+    print(fmt("│" + "  NAMIBIA EXPRESS ATM SYSTEM".center(width - 2) + "│", Color.YELLOW, Color.BOLD))
     print(fmt("│" + title.center(width - 2) + "│", Color.CYAN, Color.BOLD))
     print(fmt("├" + "─" * (width - 2) + "┤", Color.CYAN))
     for label, value, color in rows:
-        line = f"  {label:<22}{value}"
+        line = f"  {label:<24}{value}"
         padded = line.ljust(width - 2)
-        print(fmt("│", Color.CYAN) + fmt(padded[:22], Color.DIM) + fmt(padded[22:].rstrip().ljust(width - 24), color) + fmt("  │", Color.CYAN))
+        print(fmt("│", Color.CYAN) + fmt(padded[:26], Color.DIM) + fmt(padded[26:].rstrip().ljust(width - 28), color) + fmt("  │", Color.CYAN))
+    print(fmt("├" + "─" * (width - 2) + "┤", Color.CYAN))
+    print(fmt("│" + "  Thank you for banking with Namibia EXPRESS!".center(width - 2) + "│", Color.DIM))
     print(fmt("└" + "─" * (width - 2) + "┘", Color.CYAN))
     print()
 
 
 def transaction_table(transactions: list) -> None:
-    """Print a table of recent transactions."""
     if not transactions:
         info("No transactions found.")
         return
 
-    col_w = [20, 12, 12]
+    col_w = [20, 14, 14]
     head = f"  {'Date & Time':<{col_w[0]}}{'Type':<{col_w[1]}}{'Amount':>{col_w[2]}}"
     print(fmt(head, Color.BOLD))
     print(fmt("  " + "─" * (sum(col_w) + 2), Color.DIM))
