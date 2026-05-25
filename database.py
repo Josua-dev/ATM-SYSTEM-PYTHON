@@ -1,5 +1,5 @@
 """
-ATM System - Database Module
+Namibia EXPRESS ATM System - Database Module
 Handles account storage, retrieval, and persistence using JSON.
 """
 
