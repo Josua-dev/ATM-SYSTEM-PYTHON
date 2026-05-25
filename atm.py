@@ -1,5 +1,5 @@
 """
-ATM System - Main Application
+Namibia EXPRESS ATM System - Main Application
 Orchestrates all ATM screens, sessions, and user flows.
 """
 
@@ -64,7 +64,7 @@ def screen_welcome():
             screen_about()
         elif choice == "0":
             ui.clear()
-            print(ui.fmt("\n  Thank you for using our ATM. Goodbye! 👋\n", ui.Color.CYAN, ui.Color.BOLD))
+            print(ui.fmt("\n  Thank you for banking with Namibia EXPRESS! Goodbye! 👋\n", ui.Color.CYAN, ui.Color.BOLD))
             sys.exit(0)
         else:
             ui.error("Invalid option. Please try again.")
@@ -76,11 +76,13 @@ def screen_welcome():
 def screen_card_entry():
     ui.header("Insert Card")
     print(ui.fmt("  Demo Cards (copy & paste):", ui.Color.DIM))
-    print(ui.fmt("  ┌──────────────────────────────────────────────┐", ui.Color.DIM))
-    print(ui.fmt("  │  1234567890123456  PIN: 1234  Alice Johnson  │", ui.Color.DIM))
-    print(ui.fmt("  │  9876543210987654  PIN: 5678  Bob Smith      │", ui.Color.DIM))
-    print(ui.fmt("  │  1111222233334444  PIN: 9999  Carol White    │", ui.Color.DIM))
-    print(ui.fmt("  └──────────────────────────────────────────────┘", ui.Color.DIM))
+    print(ui.fmt("  ┌───────────────────────────────────────────────────┐", ui.Color.DIM))
+    print(ui.fmt("  │  1234567890123456  PIN: 1234  Josua Uuyuni        │", ui.Color.DIM))
+    print(ui.fmt("  │  9876543210987654  PIN: 5678  Lydia Uuyuni        │", ui.Color.DIM))
+    print(ui.fmt("  │  1111222233334444  PIN: 9999  Eva Uuyuni          │", ui.Color.DIM))
+    print(ui.fmt("  │  5555666677778888  PIN: 4321  Pendu Uuyuni        │", ui.Color.DIM))
+    print(ui.fmt("  │  9999000011112222  PIN: 7777  Betuel Uuyuni       │", ui.Color.DIM))
+    print(ui.fmt("  └───────────────────────────────────────────────────┘", ui.Color.DIM))
     print()
 
     card_number = ui.get_input("Enter Card Number (or 0 to cancel)").replace(" ", "")
@@ -433,29 +435,32 @@ def screen_create_account():
 # ─── About ───────────────────────────────────────────────────────────────────
 
 def screen_about():
-    ui.header("About this ATM")
-    print(ui.fmt("  ATM System v1.0", ui.Color.BOLD))
+    ui.header("About Namibia EXPRESS ATM")
+    print(ui.fmt("  Namibia EXPRESS ATM System  v1.0", ui.Color.BOLD))
+    print(ui.fmt("  Your trusted banking partner across Namibia\n", ui.Color.DIM))
     print(ui.fmt("  Built with Python 3 — No external dependencies\n", ui.Color.DIM))
     print(ui.fmt("  Features:", ui.Color.YELLOW))
     features = [
-        "Secure PIN authentication with lockout",
-        "Deposit & Withdrawal with quick-amounts",
-        "Account-to-account transfers",
-        "Full transaction history",
-        "PIN change",
-        "New account registration",
-        "Persistent JSON storage",
+        "Secure PIN authentication with automatic lockout",
+        "Deposit & Withdrawal with quick-select amounts",
+        "Account-to-account fund transfers",
+        "Full transaction history (last 10 transactions)",
+        "Self-service PIN change",
+        "New account registration at the machine",
+        "Persistent storage — data saved between sessions",
     ]
     for f in features:
-        print(f"    {'✓'} {f}")
+        print(ui.fmt(f"    ✓  {f}", ui.Color.DIM))
     print()
+    print(ui.fmt("  📞 Namibia EXPRESS Helpline: 0800-EXPRESS", ui.Color.CYAN))
+    print(ui.fmt("  🌐 www.namibiaexpress.com.na\n", ui.Color.CYAN))
     ui.press_enter()
 
 
 # ─── Entry Point ──────────────────────────────────────────────────────────────
 
 def main():
-    print(ui.fmt("\n  Starting ATM System...", ui.Color.DIM))
+    print(ui.fmt("\n  Starting Namibia EXPRESS ATM System...", ui.Color.DIM))
     db.seed_demo_accounts()
     ui.pause(0.5)
     screen_welcome()
